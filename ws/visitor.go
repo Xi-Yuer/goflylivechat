@@ -165,25 +165,45 @@ func VisitorAutoReply(vistorInfo models.Visitor, kefuInfo models.User, content s
 	kefu, ok := KefuList[kefuInfo.Name]
 	reply := models.FindReplyItemByUserIdTitle(kefuInfo.Name, content)
 	
-	// 立即调用AI智能回复（异步处理，不阻塞）
+	// 如果客服在线，只发送关键词回复（如果有），不触发AI智能回复
+	if ok && kefu != nil {
+		// 客服在线，只处理关键词回复
+		if reply.Content != "" {
+			time.Sleep(1 * time.Second)
+			VisitorMessage(vistorInfo.VisitorId, reply.Content, kefuInfo)
+			KefuMessage(vistorInfo.VisitorId, reply.Content, kefuInfo)
+			models.CreateMessage(kefuInfo.Name, vistorInfo.VisitorId, reply.Content, "kefu")
+		}
+		return
+	}
+	
+	// 客服不在线，触发AI智能回复
 	go func() {
+		// 优先使用关键词回复
+		if reply.Content != "" {
+			time.Sleep(1 * time.Second)
+			VisitorMessage(vistorInfo.VisitorId, reply.Content, kefuInfo)
+			KefuMessage(vistorInfo.VisitorId, reply.Content, kefuInfo)
+			models.CreateMessage(kefuInfo.Name, vistorInfo.VisitorId, reply.Content, "kefu")
+			return
+		}
+		
+		// 调用AI智能回复
 		aiReply, err := tools.CallDifyWorkflow(content, vistorInfo.VisitorId)
 		if err != nil {
 			log.Printf("调用Dify AI回复失败: %v", err)
-			// 如果AI回复失败且客服不在线且没有关键词回复，使用离线消息
-			if (!ok || kefu == nil) && reply.Content == "" {
-				config := models.FindConfigByUserId(kefuInfo.Name, "OfflineMessage")
-				if config.ConfValue != "" {
-					time.Sleep(1 * time.Second)
-					VisitorMessage(vistorInfo.VisitorId, config.ConfValue, kefuInfo)
-					models.CreateMessage(kefuInfo.Name, vistorInfo.VisitorId, config.ConfValue, "kefu")
-				} else {
-					// 使用默认离线消息
-					time.Sleep(1 * time.Second)
-					defaultMessage := "您好，客服暂时不在线，我们会尽快回复您的问题。"
-					VisitorMessage(vistorInfo.VisitorId, defaultMessage, kefuInfo)
-					models.CreateMessage(kefuInfo.Name, vistorInfo.VisitorId, defaultMessage, "kefu")
-				}
+			// AI回复失败，使用离线消息配置
+			config := models.FindConfigByUserId(kefuInfo.Name, "OfflineMessage")
+			if config.ConfValue != "" {
+				time.Sleep(1 * time.Second)
+				VisitorMessage(vistorInfo.VisitorId, config.ConfValue, kefuInfo)
+				models.CreateMessage(kefuInfo.Name, vistorInfo.VisitorId, config.ConfValue, "kefu")
+			} else {
+				// 使用默认离线消息
+				time.Sleep(1 * time.Second)
+				defaultMessage := "您好，客服暂时不在线，我们会尽快回复您的问题。"
+				VisitorMessage(vistorInfo.VisitorId, defaultMessage, kefuInfo)
+				models.CreateMessage(kefuInfo.Name, vistorInfo.VisitorId, defaultMessage, "kefu")
 			}
 			return
 		}
@@ -195,14 +215,6 @@ func VisitorAutoReply(vistorInfo models.Visitor, kefuInfo models.User, content s
 			models.CreateMessage(kefuInfo.Name, vistorInfo.VisitorId, aiReply, "kefu")
 		}
 	}()
-	
-	// 如果有关键词回复，也发送关键词回复（可以与AI回复同时发送）
-	if reply.Content != "" {
-		time.Sleep(500 * time.Millisecond) // 稍微延迟，让AI回复优先
-		VisitorMessage(vistorInfo.VisitorId, reply.Content, kefuInfo)
-		KefuMessage(vistorInfo.VisitorId, reply.Content, kefuInfo)
-		models.CreateMessage(kefuInfo.Name, vistorInfo.VisitorId, reply.Content, "kefu")
-	}
 }
 func CleanVisitorExpire() {
 	go func() {
