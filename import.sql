@@ -76,11 +76,11 @@ CREATE TABLE `config` (
  KEY `user_id` (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 INSERT INTO `config` (`id`, `conf_name`, `conf_key`, `conf_value`, `user_id`) VALUES
-(NULL, 'Announcement', 'AllNotice', 'Open source customer support system at your service','agent');
+(NULL, 'Announcement', 'AllNotice', '客服咨询系统，专为现代客户服务而构建','agent');
 INSERT INTO `config` (`id`, `conf_name`, `conf_key`, `conf_value`, `user_id`) VALUES
-(NULL, 'Offline Message', 'OfflineMessage', 'I am currently offline and will reply to you later!','agent');
+(NULL, 'Offline Message', 'OfflineMessage', '我目前离线，稍后回复您！','agent');
 INSERT INTO `config` (`id`, `conf_name`, `conf_key`, `conf_value`, `user_id`) VALUES
-(NULL, 'Welcome Message', 'WelcomeMessage', 'How may I help you?','agent');
+(NULL, 'Welcome Message', 'WelcomeMessage', '有什么可以帮您的吗？','agent');
 INSERT INTO `config` (`id`, `conf_name`, `conf_key`, `conf_value`, `user_id`) VALUES
 (NULL, 'Email Address (SMTP)', 'NoticeEmailSmtp', '','agent');
 INSERT INTO `config` (`id`, `conf_name`, `conf_key`, `conf_value`, `user_id`) VALUES
