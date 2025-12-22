@@ -81,6 +81,39 @@ func PostJSON(uri string, obj interface{}) ([]byte, error) {
 	return ioutil.ReadAll(response.Body)
 }
 
+// PostJSONWithHeaders post json 数据请求，支持自定义headers
+func PostJSONWithHeaders(uri string, obj interface{}, headers map[string]string) ([]byte, error) {
+	jsonBuf := new(bytes.Buffer)
+	enc := json.NewEncoder(jsonBuf)
+	enc.SetEscapeHTML(false)
+	err := enc.Encode(obj)
+	if err != nil {
+		return nil, err
+	}
+
+	request, err := http.NewRequest(http.MethodPost, uri, jsonBuf)
+	if err != nil {
+		return nil, err
+	}
+
+	request.Header.Set("Content-Type", "application/json;charset=utf-8")
+	for key, value := range headers {
+		request.Header.Set(key, value)
+	}
+
+	response, err := http.DefaultClient.Do(request)
+	if err != nil {
+		return nil, err
+	}
+	defer response.Body.Close()
+
+	if response.StatusCode != http.StatusOK {
+		body, _ := ioutil.ReadAll(response.Body)
+		return nil, fmt.Errorf("http post error : uri=%v , statusCode=%v , body=%v", uri, response.StatusCode, string(body))
+	}
+	return ioutil.ReadAll(response.Body)
+}
+
 // PostJSONWithRespContentType post json数据请求，且返回数据类型
 func PostJSONWithRespContentType(uri string, obj interface{}) ([]byte, string, error) {
 	jsonBuf := new(bytes.Buffer)
