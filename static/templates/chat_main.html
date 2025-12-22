@@ -188,7 +188,7 @@
                             <el-row v-for="item in ipBlacks" :key="item.id" class="">
                                 <el-tooltip content="点击移除" placement="left">
                                     <div v-on:click="delIpblack(item.ip)" style="cursor:pointer" class="onlineUsers imgGray">
-                                        <{item.ip}>
+                                        <span><{item.ip}></span>
                                     </div>
                                 </el-tooltip>
                             </el-row>
@@ -852,6 +852,7 @@
                     this.getVisitorPage(1);
                 }
                 if(tab.name=="blackList"){
+                    this.getIpblacks();
                 }
             },
             //所有访客分页展示
