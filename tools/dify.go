@@ -8,7 +8,7 @@ import (
 
 const (
 	DifyAPIBaseURL = "https://api.dify.ai/v1"
-	DifyAPIKey     = "xxxxxxxxxx"
+	DifyAPIKey     = "app-HiqJ6L66vQ7k49pQV21krfUI"
 )
 
 // DifyChatRequest Dify聊天请求结构

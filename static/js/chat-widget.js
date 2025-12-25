@@ -55,6 +55,7 @@ CHAT_WIDGET.injectStyles = function () {
             cursor: pointer;
             box-shadow: 0 2px 10px rgba(0,0,0,0.2);
             z-index: 9999;
+            transform: scale(1.5);
         }
         
         #chat-widget-button .notification-badge {
@@ -126,7 +127,7 @@ CHAT_WIDGET.createChatButton = function () {
             <rdf:Description dc:format="image/svg+xml" dc:Label="1" dc:ContentProducer="001191330110MACRLGPT8B00000" dc:ProduceID="340695450" dc:ReservedCode1="fhHYYc2jeZRKQ5b+cLlAfKpe4xfMZyt03Ua9afnJeTQ=" dc:ContentPropagator="001191330110MACRLGPT8B00000" dc:PropagateID="340695450" dc:ReservedCode2="fhHYYc2jeZRKQ5b+cLlAfKpe4xfMZyt03Ua9afnJeTQ="/>
             </rdf:RDF>
         </metadata>
-        <g transform="translate(14.087194,796.962286) scale(0.098300,-0.098300)" fill="#4d82f2" stroke="none">
+        <g transform="translate(14.087194,796.962286) scale(0.098300,-0.098300)" fill="#ffffff" stroke="none">
             <path d="M2623 6170 c-403 -20 -572 -96 -693 -312 -76 -136 -86 -221 -100 -838 -28 -1252 -22 -2310 15 -2553 42 -278 203 -476 435 -533 121 -30 500 -36 1750 -30 682 4 1291 11 1374 17 243 17 338 51 447 160 72 72 124 165 148 265 18 73 20 152 30 1094 18 1612 13 2076 -23 2251 -36 172 -152 326 -298 393 -152 71 -107 68 -1278 76 -580 4 -1185 10 -1345 13 -159 3 -368 2 -462 -3z m2757 -140 c98 -7 167 -16 213 -31 130 -41 232 -143 276 -276 41 -122 44 -276 35 -1583 -4 -674 -9 -1342 -10 -1485 -2 -292 -7 -321 -80 -431 -64 -96 -154 -152 -284 -175 -138 -25 -3026 -33 -3168 -9 -145 24 -231 81 -312 204 -51 80 -75 152 -92 287 -18 139 -18 2107 0 2663 14 428 23 502 74 598 81 153 213 224 453 247 117 11 2705 3 2895 -9z"/>
             <path d="M2493 5939 c-140 -16 -239 -62 -312 -145 -47 -53 -101 -159 -100 -195 l0 -24 17 25 c77 114 255 216 537 305 121 38 124 45 20 44 -49 -1 -122 -5 -162 -10z"/>
             <path d="M5370 5927 c0 -8 11 -20 25 -27 14 -7 25 -19 25 -26 0 -15 -62 -29 -86 -20 -10 4 -14 1 -12 -6 6 -18 73 -49 115 -54 49 -6 73 14 80 64 5 34 2 42 -22 60 -32 26 -125 32 -125 9z"/>
