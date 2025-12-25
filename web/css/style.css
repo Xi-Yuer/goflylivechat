@@ -1,0 +1,1188 @@
+/* 全局样式重置 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "思源黑体", "Microsoft Yahei", sans-serif;
+}
+
+/* 全局变量 */
+:root {
+    --primary-color: #1E88E5;
+    /* 主色：静谧蓝 */
+    --secondary-color: #FFB74D;
+    /* 强调色：暖金 */
+    --text-color: #333;
+    /* 正文色 */
+    --light-text: #666;
+    /* 浅文本色 */
+    --bg-color: #f8f9fa;
+    /* 背景色 */
+    --white: #fff;
+    /* 白色 */
+    --container-width: 1200px;
+    /* 容器宽度 */
+    --gap: 20px;
+    /* 通用间距 */
+}
+
+/* 通用样式 */
+body {
+    color: var(--text-color);
+    background-color: var(--white);
+    line-height: 1.6;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+ul,
+ol {
+    list-style: none;
+}
+
+.container {
+    width: 90%;
+    max-width: var(--container-width);
+    margin: 0 auto;
+}
+
+.btn {
+    display: inline-block;
+    padding: 12px 30px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: none;
+}
+
+.primary {
+    background-color: var(--secondary-color);
+    color: var(--white);
+}
+
+.secondary {
+    background-color: transparent;
+    color: var(--primary-color);
+    border: 2px solid var(--primary-color);
+}
+
+.btn:hover {
+    transform: scale(1.05);
+}
+
+.section-title {
+    text-align: center;
+    font-size: 32px;
+    margin-bottom: 40px;
+    color: var(--primary-color);
+    position: relative;
+}
+
+.section-title::after {
+    content: "";
+    display: block;
+    width: 80px;
+    height: 4px;
+    background-color: var(--secondary-color);
+    margin: 10px auto;
+}
+
+/* 语言切换按钮样式 */
+.language-switch {
+    display: flex;
+    gap: 8px;
+    margin-right: 20px;
+}
+
+.lang-btn {
+    padding: 4px 12px;
+    border: 1px solid var(--primary-color);
+    border-radius: 20px;
+    background-color: transparent;
+    color: var(--primary-color);
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.3s;
+}
+
+.lang-btn.active {
+    background-color: var(--primary-color);
+    color: var(--white);
+}
+
+.lang-btn:hover {
+    background-color: rgba(30, 136, 229, 0.1);
+}
+
+/* 导航栏样式 */
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: var(--white);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    z-index: 999;
+    padding: 15px 0;
+}
+
+.header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo h1 {
+    font-size: 24px;
+    color: var(--primary-color);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.en-logo {
+    font-size: 14px;
+    font-weight: normal;
+    color: var(--light-text);
+}
+
+.nav-pc ul {
+    display: flex;
+    gap: 30px;
+}
+
+.nav-pc a {
+    font-size: 16px;
+    font-weight: 500;
+    transition: color 0.3s;
+}
+
+.nav-pc a.active {
+    color: var(--secondary-color);
+    font-weight: bold;
+}
+
+.nav-pc a:hover {
+    color: var(--secondary-color);
+}
+
+.tel {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    color: var(--primary-color);
+    font-weight: bold;
+}
+
+.iconfont {
+    font-size: 18px;
+}
+
+/* 移动端导航隐藏 */
+.nav-mobile-btn,
+.nav-mobile {
+    display: none;
+}
+
+/* Banner区样式 */
+.banner {
+    height: 100vh;
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../images/banner.jpg") no-repeat center center;
+    background-size: cover;
+    display: flex;
+    align-items: center;
+    color: var(--white);
+    margin-top: 70px;
+    /* 避开固定导航栏 */
+}
+
+.banner-content {
+    max-width: 800px;
+    text-align: center;
+    margin: 0 auto;
+}
+
+.banner h2 {
+    font-size: 48px;
+    margin-bottom: 20px;
+    line-height: 1.2;
+}
+
+.banner p {
+    font-size: 20px;
+    margin-bottom: 40px;
+}
+
+.banner-btn {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+}
+
+/* 关于我们样式 */
+.about {
+    padding: 80px 0;
+    background-color: var(--bg-color);
+}
+
+.about-content {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.about-text p {
+    font-size: 18px;
+    line-height: 1.8;
+    margin-bottom: 40px;
+    color: var(--light-text);
+}
+
+.advantage h4 {
+    font-size: 24px;
+    margin-bottom: 30px;
+    color: var(--primary-color);
+}
+
+.advantage ul {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+}
+
+.advantage li {
+    display: flex;
+    gap: 15px;
+    align-items: flex-start;
+    background-color: var(--white);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.advantage li i {
+    font-size: 24px;
+    margin-top: 5px;
+}
+
+.advantage h5 {
+    color: #1E88E5 !important;
+    font-size: 18px;
+    margin-bottom: 5px;
+}
+
+.advantage p {
+    color: var(--light-text);
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+/* 核心服务样式 */
+.service {
+    padding: 80px 0;
+}
+
+.service-process h4,
+.service-type h4 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: var(--primary-color);
+    text-align: center;
+}
+
+.process-steps {
+    display: flex;
+    gap: 30px;
+    margin-bottom: 60px;
+}
+
+.step {
+    flex: 1;
+    text-align: center;
+}
+
+.step-num {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: var(--primary-color);
+    color: var(--white);
+    font-size: 24px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 15px;
+}
+
+.step-content h5 {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.step-content p {
+    color: var(--light-text);
+}
+
+.service-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.service-cards .card {
+    background-color: var(--bg-color);
+    padding: 30px;
+    border-radius: 10px;
+    text-align: center;
+    transition: transform 0.3s;
+}
+
+.service-cards .card:hover {
+    transform: translateY(-10px);
+}
+
+.service-cards i {
+    font-size: 40px;
+    color: var(--secondary-color);
+    margin-bottom: 15px;
+}
+
+.service-cards h5 {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.service-cards p {
+    color: var(--light-text);
+    font-size: 14px;
+}
+
+/* 医疗资源样式 */
+.resource {
+    padding: 80px 0;
+    background-color: var(--bg-color);
+}
+
+.hospitals h4 {
+    font-size: 24px;
+    margin-bottom: 30px;
+    color: var(--primary-color);
+    text-align: center;
+}
+
+.hospital-logos {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+    align-items: center;
+    background-color: var(--white);
+    padding: 40px 20px;
+    border-radius: 15px;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+}
+
+.logo-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    padding: 20px;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+    flex: 0 1 180px;
+    text-align: center;
+}
+
+.logo-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.logo-item img {
+    max-width: 100%;
+    height: auto;
+    max-height: 80px;
+    object-fit: contain;
+    filter: grayscale(100%);
+    transition: filter 0.3s ease;
+}
+
+.logo-item:hover img {
+    filter: grayscale(0%);
+}
+
+.logo-name {
+    font-size: 14px;
+    color: var(--light-text);
+    font-weight: 500;
+    margin-top: 5px;
+}
+
+/* 联系我们样式 */
+.contact {
+    padding: 80px 0;
+    background-color: var(--primary-color);
+    color: var(--white);
+}
+
+.contact .section-title {
+    color: var(--white);
+}
+
+.contact .section-title::after {
+    background-color: var(--secondary-color);
+}
+
+.contact-content {
+    display: flex;
+    gap: 40px;
+}
+
+.contact-info {
+    flex: 1;
+}
+
+.contact-form {
+    flex: 1;
+}
+
+.contact-info h4 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: var(--secondary-color);
+}
+
+.contact-info ul {
+    margin-bottom: 30px;
+}
+
+.contact-info li {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin-bottom: 10px;
+    font-size: 16px;
+}
+
+/* 微信联系样式 */
+.wechat-contact {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+}
+
+.wechat-contact div {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.wechat-qrcode {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+}
+
+.wechat-qrcode img {
+    border-radius: 8px;
+}
+
+.wechat-qrcode p {
+    font-size: 14px;
+    color: var(--secondary-color);
+}
+
+.contact-form h4 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: var(--secondary-color);
+}
+
+.contact-form form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.contact-form input,
+.contact-form select,
+.contact-form textarea {
+    padding: 12px;
+    border-radius: 5px;
+    border: none;
+    outline: none;
+    font-size: 16px;
+}
+
+.contact-form textarea {
+    height: 120px;
+    resize: none;
+}
+
+/* 页脚样式 */
+.footer {
+    background-color: #222;
+    color: var(--white);
+    text-align: center;
+    padding: 20px 0;
+    font-size: 14px;
+}
+
+/* 案例页样式 */
+.case-banner {
+    height: 200px;
+    background-color: var(--primary-color);
+    color: var(--white);
+    display: flex;
+    align-items: center;
+    margin-top: 70px;
+}
+
+.case-banner h2 {
+    font-size: 36px;
+    margin-bottom: 10px;
+}
+
+.case-banner p {
+    font-size: 18px;
+    opacity: 0.9;
+}
+
+.case-list {
+    padding: 80px 0;
+}
+
+.case-cards {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+}
+
+.case-cards .card {
+    display: flex;
+    gap: 20px;
+    background-color: var(--bg-color);
+    padding: 20px;
+    border-radius: 10px;
+    transition: transform 0.3s;
+}
+
+.case-cards .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.card-img img {
+    width: 200px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.card-text h5 {
+    font-size: 18px;
+    margin-bottom: 10px;
+    color: var(--primary-color);
+}
+
+.card-text p {
+    color: var(--light-text);
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+/* 试管科普样式 */
+.ivf-knowledge {
+    padding: 80px 0;
+    background-color: var(--bg-color);
+}
+
+.knowledge-content {
+    background-color: var(--white);
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+}
+
+.knowledge-item {
+    margin-bottom: 40px;
+}
+
+.knowledge-item:last-child {
+    margin-bottom: 0;
+}
+
+.knowledge-item h4 {
+    font-size: 22px;
+    margin-bottom: 15px;
+    color: var(--primary-color);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.knowledge-item h4::before {
+    content: "";
+    width: 4px;
+    height: 20px;
+    background-color: var(--secondary-color);
+    border-radius: 2px;
+}
+
+.knowledge-item p {
+    font-size: 16px;
+    color: var(--light-text);
+    line-height: 1.8;
+    margin-bottom: 20px;
+}
+
+.knowledge-item ol {
+    list-style: decimal;
+    margin-left: 20px;
+    color: var(--light-text);
+    line-height: 2;
+}
+
+.knowledge-item ul {
+    list-style: disc;
+    margin-left: 20px;
+    color: var(--light-text);
+    line-height: 2;
+}
+
+.two-column {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+}
+
+.two-column h5 {
+    font-size: 18px;
+    margin-bottom: 15px;
+    color: var(--primary-color);
+}
+
+.faq {
+    margin-top: 20px;
+}
+
+.faq-item {
+    margin-bottom: 20px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 15px;
+}
+
+.faq-item:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.faq-item h5 {
+    font-size: 16px;
+    color: var(--text-color);
+    margin-bottom: 5px;
+}
+
+.faq-item p {
+    font-size: 15px;
+    margin-bottom: 0;
+}
+
+/* 案例页咨询入口 */
+.case-consult {
+    padding: 60px 0;
+    text-align: center;
+}
+
+.case-consult h3 {
+    font-size: 28px;
+    margin-bottom: 15px;
+    color: var(--primary-color);
+}
+
+.case-consult p {
+    font-size: 18px;
+    color: var(--light-text);
+    margin-bottom: 30px;
+}
+
+/* 通用新页面头图 */
+.page-hero {
+    height: 320px;
+    margin-top: 70px;
+    position: relative;
+    color: var(--white);
+    display: flex;
+    align-items: center;
+}
+
+.hero-overlay {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(120deg, rgba(30, 136, 229, 0.75), rgba(0, 0, 0, 0.4));
+    display: flex;
+    align-items: center;
+}
+
+.hero-text {
+    max-width: 720px;
+}
+
+.hero-text h2 {
+    font-size: 36px;
+    margin: 10px 0;
+    line-height: 1.3;
+}
+
+.hero-text .sub {
+    font-size: 18px;
+    opacity: 0.9;
+}
+
+.badge {
+    display: inline-block;
+    padding: 6px 14px;
+    border-radius: 999px;
+    background-color: rgba(255, 255, 255, 0.18);
+    font-size: 14px;
+}
+
+.donor-hero {
+    background: url("https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=1600&q=80") center/cover no-repeat;
+}
+
+.surrogacy-hero {
+    background: url("https://images.unsplash.com/photo-1485846234645-a62644f84728?auto=format&fit=crop&w=1600&q=80") center/cover no-repeat;
+}
+
+/* Donor 资源库页面 */
+.donor-panel {
+    padding: 80px 0;
+    background: #f5f7fb;
+}
+
+.donor-layout {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 40px;
+    align-items: flex-start;
+}
+
+.donor-info h3 {
+    font-size: 26px;
+    margin-bottom: 20px;
+    color: var(--primary-color);
+}
+
+.feature-list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin-bottom: 20px;
+    color: var(--light-text);
+}
+
+.feature-list li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--white);
+    padding: 12px 14px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.feature-list i {
+    color: var(--secondary-color);
+}
+
+.cta {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+    margin-top: 10px;
+}
+
+.cta.center {
+    justify-content: center;
+}
+
+.donor-login-card {
+    background: var(--white);
+    padding: 28px;
+    border-radius: 14px;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+}
+
+.donor-login-card h3 {
+    font-size: 22px;
+    margin-bottom: 8px;
+    color: var(--primary-color);
+}
+
+.donor-login-card .hint {
+    color: var(--light-text);
+    margin-bottom: 20px;
+}
+
+.input-label {
+    display: block;
+    font-size: 14px;
+    margin: 10px 0 6px;
+    color: var(--text-color);
+}
+
+.input-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 14px;
+    border-radius: 8px;
+    border: 1px solid #e5e7eb;
+    background: #fafafa;
+}
+
+.input-group input {
+    border: none;
+    outline: none;
+    width: 100%;
+    background: transparent;
+    font-size: 15px;
+}
+
+.form-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 12px 0 10px;
+    gap: 10px;
+}
+
+.checkbox {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    color: var(--light-text);
+}
+
+.text-btn {
+    background: none;
+    border: none;
+    color: var(--primary-color);
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.btn.full {
+    width: 100%;
+    text-align: center;
+}
+
+.mini-text {
+    font-size: 12px;
+    color: var(--light-text);
+    margin-top: 12px;
+}
+
+/* 合法代孕页面 */
+.surrogacy-section {
+    padding: 80px 0;
+    background: var(--white);
+}
+
+.surrogacy-section.alt {
+    background: var(--bg-color);
+}
+
+.feature-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+}
+
+.feature-grid .card {
+    background: var(--white);
+    padding: 22px;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+    border: 1px solid #eef1f5;
+}
+
+.feature-grid h4 {
+    font-size: 18px;
+    margin-bottom: 10px;
+    color: var(--primary-color);
+}
+
+.feature-grid p {
+    color: var(--light-text);
+    margin-bottom: 12px;
+}
+
+.tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.pill {
+    display: inline-block;
+    padding: 6px 10px;
+    background: #eef3fb;
+    color: var(--primary-color);
+    border-radius: 999px;
+    font-size: 12px;
+}
+
+/* 代孕页面时间线（交错圆形步骤） */
+.timeline {
+    position: relative;
+    padding-left: 40px;
+    margin-left: 10px;
+}
+
+.timeline::before {
+    content: '';
+    position: absolute;
+    left: 15px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background-color: var(--primary-color);
+    opacity: 0.3;
+}
+
+.timeline .step {
+    display: flex;
+    gap: 20px;
+    background: var(--white);
+    padding: 18px;
+    border-radius: 12px;
+    border: 1px solid #eef1f5;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+    margin-bottom: 20px;
+    position: relative;
+    align-items: center;
+}
+
+/* 小圆形数字样式 */
+.timeline .step-num {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background-color: var(--primary-color);
+    color: var(--white);
+    font-size: 14px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    position: absolute;
+    left: -50px;
+    z-index: 1;
+}
+
+/* 交错排列样式 */
+.timeline .step:nth-child(even) .step-num {
+    top: -10px;
+}
+
+.timeline .step:nth-child(odd) .step-num {
+    bottom: -10px;
+}
+
+.timeline .step>div {
+    flex: 1;
+    padding: 0 10px;
+}
+
+.timeline .step h4 {
+    font-size: 17px;
+    margin: 0;
+    padding: 0;
+    color: var(--primary-color);
+}
+
+/* 响应式适配：屏幕宽度≤768px（手机/平板） */
+@media (max-width: 768px) {
+
+    /* 导航栏适配 */
+    .nav-pc,
+    .tel {
+        display: none;
+    }
+
+    .language-switch {
+        margin-right: 10px;
+    }
+
+    .lang-btn {
+        padding: 3px 8px;
+        font-size: 12px;
+    }
+
+    .nav-mobile-btn {
+        display: block;
+        font-size: 24px;
+        color: var(--primary-color);
+        cursor: pointer;
+    }
+
+    .nav-mobile {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background-color: var(--white);
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+    }
+
+    .nav-mobile ul {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .nav-mobile a {
+        font-size: 16px;
+        padding: 5px 0;
+        display: block;
+    }
+
+    .nav-mobile a.active {
+        color: var(--secondary-color);
+    }
+
+    /* Banner适配 */
+    .banner h2 {
+        font-size: 32px;
+    }
+
+    .banner p {
+        font-size: 16px;
+    }
+
+    .banner-btn {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    /* 关于我们适配 */
+    .advantage ul {
+        grid-template-columns: 1fr;
+    }
+
+    /* 核心服务适配 */
+    .process-steps {
+        flex-direction: column;
+    }
+
+    .service-cards,
+    .hospital-cards {
+        grid-template-columns: 1fr;
+    }
+
+    /* 联系我们适配 */
+    .contact-content {
+        flex-direction: column;
+    }
+
+    .wechat-contact div {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    /* 案例页适配 */
+    .case-banner {
+        height: 150px;
+        text-align: center;
+    }
+
+    .case-banner h2 {
+        font-size: 28px;
+    }
+
+    .case-banner p {
+        font-size: 16px;
+    }
+
+    .case-cards {
+        grid-template-columns: 1fr;
+    }
+
+    .case-cards .card {
+        flex-direction: column;
+    }
+
+    .card-img img {
+        width: 100%;
+        height: auto;
+    }
+
+    .two-column {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    /* 新页面适配 */
+    .page-hero {
+        height: 240px;
+    }
+
+    .hero-text h2 {
+        font-size: 26px;
+    }
+
+    .hero-text .sub {
+        font-size: 15px;
+    }
+
+    .donor-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .feature-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .timeline {
+        padding-left: 30px;
+        margin-left: 5px;
+    }
+
+    .timeline::before {
+        left: 10px;
+    }
+
+    .timeline .step-num {
+        width: 30px;
+        height: 30px;
+        font-size: 12px;
+        left: -40px;
+    }
+
+    .timeline .step {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .timeline .step>div {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        flex: 1;
+    }
+}

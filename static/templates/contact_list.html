@@ -1,0 +1,319 @@
+{{template "header"}}
+<style>
+    .contact-list-container {
+        padding: 20px;
+        background: #f5f7fa;
+        min-height: 100vh;
+    }
+    .contact-card {
+        margin-bottom: 20px;
+    }
+    .contact-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .contact-info {
+        margin-top: 10px;
+    }
+    .contact-info-item {
+        margin: 8px 0;
+        color: #606266;
+    }
+    .contact-info-item strong {
+        color: #303133;
+        margin-right: 8px;
+    }
+    .status-tag {
+        margin-left: 10px;
+    }
+    .action-buttons {
+        margin-top: 15px;
+    }
+    .remark-section {
+        margin-top: 15px;
+        padding-top: 15px;
+        border-top: 1px solid #ebeef5;
+    }
+</style>
+<div id="app" class="contact-list-container">
+    <template>
+        <el-card>
+            <div slot="header" class="contact-header">
+                <h2>联系方式记录</h2>
+                <el-button type="primary" icon="el-icon-refresh" @click="loadContacts">刷新</el-button>
+            </div>
+            <div v-loading="loading">
+                <el-card v-for="contact in contacts" :key="contact.id" class="contact-card" shadow="hover">
+                    <div class="contact-info">
+                        <div class="contact-info-item">
+                            <strong>姓名：</strong><{contact.name}>
+                            <el-tag :type="contact.status == 1 ? 'success' : 'info'" size="small" class="status-tag">
+                                <{contact.status == 1 ? '已处理' : '未处理'}>
+                            </el-tag>
+                        </div>
+                        <div class="contact-info-item">
+                            <strong>电话：</strong><{contact.phone}>
+                        </div>
+                        <div class="contact-info-item">
+                            <strong>咨询类型：</strong><{contact.type}>
+                        </div>
+                        <div class="contact-info-item" v-if="contact.demand">
+                            <strong>需求：</strong><{contact.demand}>
+                        </div>
+                        <div class="contact-info-item">
+                            <strong>提交时间：</strong><{contact.created_at}>
+                        </div>
+                        <div class="contact-info-item" v-if="contact.client_ip">
+                            <strong>IP地址：</strong><{contact.client_ip}>
+                        </div>
+                        <div class="contact-info-item" v-if="contact.processed_by">
+                            <strong>处理人：</strong><{contact.processed_by}>
+                        </div>
+                        <div class="contact-info-item" v-if="contact.processed_at">
+                            <strong>处理时间：</strong><{contact.processed_at}>
+                        </div>
+                        <div class="remark-section" v-if="contact.remark">
+                            <strong>备注：</strong><{contact.remark}>
+                        </div>
+                    </div>
+                    <div class="action-buttons">
+                        <el-button 
+                            v-if="contact.status == 0" 
+                            type="success" 
+                            size="small" 
+                            icon="el-icon-check"
+                            @click="handleProcess(contact.id)">
+                            标记为已处理
+                        </el-button>
+                        <el-button 
+                            v-if="contact.status == 1" 
+                            type="info" 
+                            size="small" 
+                            icon="el-icon-refresh-left"
+                            @click="handleUnprocess(contact.id)">
+                            标记为未处理
+                        </el-button>
+                        <el-button 
+                            type="primary" 
+                            size="small" 
+                            icon="el-icon-edit"
+                            @click="handleEdit(contact)">
+                            添加备注
+                        </el-button>
+                        <el-button 
+                            type="danger" 
+                            size="small" 
+                            icon="el-icon-delete"
+                            @click="handleDelete(contact.id)">
+                            删除
+                        </el-button>
+                    </div>
+                </el-card>
+                <el-empty v-if="!loading && contacts.length == 0" description="暂无联系方式记录"></el-empty>
+                <el-pagination
+                    v-if="total > 0"
+                    @current-change="handlePageChange"
+                    :current-page="page"
+                    :page-size="pagesize"
+                    layout="prev, pager, next, total"
+                    :total="total"
+                    style="margin-top: 20px; text-align: center;">
+                </el-pagination>
+            </div>
+        </el-card>
+
+        <!-- 备注编辑对话框 -->
+        <el-dialog title="添加备注" :visible.sync="remarkDialogVisible" width="500px">
+            <el-input
+                type="textarea"
+                :rows="4"
+                placeholder="请输入备注信息"
+                v-model="remarkText">
+            </el-input>
+            <div slot="footer" class="dialog-footer">
+                <el-button @click="remarkDialogVisible = false">取消</el-button>
+                <el-button type="primary" @click="handleSaveRemark">确定</el-button>
+            </div>
+        </el-dialog>
+    </template>
+</div>
+</body>
+<script>
+    new Vue({
+        el: '#app',
+        delimiters:["<{","}>"],
+        data: {
+            loading: false,
+            contacts: [],
+            page: 1,
+            pagesize: 10,
+            total: 0,
+            remarkDialogVisible: false,
+            remarkText: '',
+            currentContactId: 0
+        },
+        methods: {
+            loadContacts() {
+                let _this = this;
+                _this.loading = true;
+                $.ajax({
+                    type: "GET",
+                    url: "/contacts",
+                    data: {
+                        page: _this.page,
+                        pagesize: _this.pagesize
+                    },
+                    headers: {
+                        "token": localStorage.getItem("token")
+                    },
+                    success: function(data) {
+                        _this.loading = false;
+                        if (data.code == 200) {
+                            _this.contacts = data.result.list;
+                            _this.total = data.result.count;
+                        } else {
+                            _this.$message.error(data.msg || "加载失败");
+                        }
+                    },
+                    error: function() {
+                        _this.loading = false;
+                        _this.$message.error("网络错误");
+                    }
+                });
+            },
+            handlePageChange(page) {
+                this.page = page;
+                this.loadContacts();
+            },
+            handleProcess(id) {
+                let _this = this;
+                _this.$confirm('确认标记为已处理？', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    $.ajax({
+                        type: "POST",
+                        url: "/contact/update",
+                        data: {
+                            id: id,
+                            status: 1
+                        },
+                        headers: {
+                            "token": localStorage.getItem("token")
+                        },
+                        success: function(data) {
+                            if (data.code == 200) {
+                                _this.$message.success("操作成功");
+                                _this.loadContacts();
+                            } else {
+                                _this.$message.error(data.msg || "操作失败");
+                            }
+                        },
+                        error: function() {
+                            _this.$message.error("网络错误");
+                        }
+                    });
+                });
+            },
+            handleUnprocess(id) {
+                let _this = this;
+                _this.$confirm('确认标记为未处理？', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    $.ajax({
+                        type: "POST",
+                        url: "/contact/update",
+                        data: {
+                            id: id,
+                            status: 0
+                        },
+                        headers: {
+                            "token": localStorage.getItem("token")
+                        },
+                        success: function(data) {
+                            if (data.code == 200) {
+                                _this.$message.success("操作成功");
+                                _this.loadContacts();
+                            } else {
+                                _this.$message.error(data.msg || "操作失败");
+                            }
+                        },
+                        error: function() {
+                            _this.$message.error("网络错误");
+                        }
+                    });
+                });
+            },
+            handleEdit(contact) {
+                this.currentContactId = contact.id;
+                this.remarkText = contact.remark || '';
+                this.remarkDialogVisible = true;
+            },
+            handleSaveRemark() {
+                let _this = this;
+                $.ajax({
+                    type: "POST",
+                    url: "/contact/update",
+                    data: {
+                        id: _this.currentContactId,
+                        remark: _this.remarkText
+                    },
+                    headers: {
+                        "token": localStorage.getItem("token")
+                    },
+                    success: function(data) {
+                        if (data.code == 200) {
+                            _this.$message.success("备注保存成功");
+                            _this.remarkDialogVisible = false;
+                            _this.loadContacts();
+                        } else {
+                            _this.$message.error(data.msg || "保存失败");
+                        }
+                    },
+                    error: function() {
+                        _this.$message.error("网络错误");
+                    }
+                });
+            },
+            handleDelete(id) {
+                let _this = this;
+                _this.$confirm('确认删除这条记录？', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    $.ajax({
+                        type: "DELETE",
+                        url: "/contact",
+                        data: {
+                            id: id
+                        },
+                        headers: {
+                            "token": localStorage.getItem("token")
+                        },
+                        success: function(data) {
+                            if (data.code == 200) {
+                                _this.$message.success("删除成功");
+                                _this.loadContacts();
+                            } else {
+                                _this.$message.error(data.msg || "删除失败");
+                            }
+                        },
+                        error: function() {
+                            _this.$message.error("网络错误");
+                        }
+                    });
+                });
+            }
+        },
+        created: function() {
+            this.loadContacts();
+        }
+    });
+</script>
+</html>
+

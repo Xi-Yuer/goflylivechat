@@ -93,4 +93,9 @@ func InitApiRouter(engine *gin.Engine) {
 	}
 	//微信接口
 	engine.GET("/micro_program", middleware.JwtApiMiddleware, controller.GetCheckWeixinSign)
+	//联系方式接口
+	engine.POST("/contact", middleware.Ipblack, controller.PostContact)
+	engine.GET("/contacts", middleware.JwtApiMiddleware, controller.GetContacts)
+	engine.POST("/contact/update", middleware.JwtApiMiddleware, controller.UpdateContact)
+	engine.DELETE("/contact", middleware.JwtApiMiddleware, controller.DeleteContact)
 }

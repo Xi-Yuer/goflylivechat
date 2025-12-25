@@ -13,6 +13,7 @@ func InitViewRouter(engine *gin.Engine) {
 	engine.GET("/main", PageMain)
 	engine.GET("/chat_main", PageChatMain)
 	engine.GET("/setting", PageSetting)
+	engine.GET("/contact_list", PageContactList)
 }
 
 // Login page
@@ -54,4 +55,9 @@ func PageChatMain(c *gin.Context) {
 // Settings
 func PageSetting(c *gin.Context) {
 	c.HTML(http.StatusOK, "setting.html", nil)
+}
+
+// Contact list page
+func PageContactList(c *gin.Context) {
+	c.HTML(http.StatusOK, "contact_list.html", nil)
 }

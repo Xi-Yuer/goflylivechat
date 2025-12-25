@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donor资源库 - coniferhealthy</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://at.alicdn.com/t/c/font_4085200_7z9e8k8z87.css">
+</head>
+
+<body>
+    <!-- 导航栏 -->
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <h1>康年国际健康</h1>
+                <p>Conifer International Health</p>
+            </div>
+            <nav class="nav-pc">
+                <ul>
+                    <li><a href="index.html">首页</a></li>
+                    <li><a href="index.html#about">关于我们</a></li>
+                    <li><a href="index.html#service">核心服务</a></li>
+                    <li><a class="active" href="donor.html">Donor资源库</a></li>
+                    <li><a href="surrogacy.html">合法代孕</a></li>
+                    <li><a href="index.html#resource">医疗资源</a></li>
+                    <li><a href="case.html">成功案例</a></li>
+                    <li><a href="index.html#contact">联系我们</a></li>
+                </ul>
+            </nav>
+            <div class="nav-mobile-btn">
+                <i class="iconfont icon-bars"></i>
+            </div>
+            <nav class="nav-mobile">
+                <ul>
+                    <li><a href="index.html">首页</a></li>
+                    <li><a href="index.html#about">关于我们</a></li>
+                    <li><a href="index.html#service">核心服务</a></li>
+                    <li><a class="active" href="donor.html">Donor资源库</a></li>
+                    <li><a href="surrogacy.html">合法代孕</a></li>
+                    <li><a href="index.html#resource">医疗资源</a></li>
+                    <li><a href="case.html">成功案例</a></li>
+                    <li><a href="index.html#contact">联系我们</a></li>
+                </ul>
+            </nav>
+            <div class="tel">
+                <i class="iconfont icon-phone"></i>
+                <span>400-888-9999</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- 顶部背景 -->
+    <section class="page-hero donor-hero">
+        <div class="hero-overlay">
+            <div class="container">
+                <div class="hero-text">
+                    <p class="badge">安全 · 合规 · 私密</p>
+                    <h2>全球优质 Donor 资源一站式筛选</h2>
+                    <p class="sub">权威基因筛查 | 医学团队把关 | 配对结果全程可追溯</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 登录与介绍 -->
+    <section class="donor-panel">
+        <div class="container donor-layout">
+            <div class="donor-info">
+                <h3>为什么选择我们的 Donor 资源库？</h3>
+                <ul class="feature-list">
+                    <li><i class="iconfont icon-safe"></i> 三级审核：健康体检 + 遗传病史 + 行为背景</li>
+                    <li><i class="iconfont icon-tech"></i> 全基因组筛查：PGS/PGD 排除主流遗传风险</li>
+                    <li><i class="iconfont icon-custom"></i> 精准匹配：颜值、身高、学历、种族、mbti等多维筛选</li>
+                    <!-- <li><i class="iconfont icon-shield"></i> 法律合规：合作机构均为合法注册医疗机构</li> -->
+                    <li><i class="iconfont icon-lock"></i> 把控风险：全流程保护双方隐私，无后顾之忧</li>
+                </ul>
+                <div class="cta">
+                    <a class="btn primary" href="index.html#contact">预约顾问解锁更多资源</a>
+                    <!-- <a class="btn secondary" href="case.html">查看成功案例</a> -->
+                </div>
+            </div>
+
+            <div id="donor-app" class="donor-login-card">
+                <h3>登录 Donor 资源库</h3>
+                <p class="hint">请使用您的账号密码登录，首次访问可先注册</p>
+                <form @submit.prevent="handleLogin">
+                    <label class="input-label" for="account">账号</label>
+                    <div class="input-group">
+                        <i class="iconfont icon-user"></i>
+                        <input id="account" v-model.trim="form.account" type="text" placeholder="联系顾问获取账号" required>
+                    </div>
+
+                    <label class="input-label" for="password">密码</label>
+                    <div class="input-group">
+                        <i class="iconfont icon-lock"></i>
+                        <input id="password" v-model.trim="form.password" type="password" placeholder="请输入密码" required>
+                    </div>
+
+                    <div class="form-row">
+                        <label class="checkbox">
+                            <input type="checkbox" v-model="form.remember">
+                            <span>记住我</span>
+                        </label>
+                        <button type="button" class="text-btn" @click="handleForgot">忘记密码？</button>
+                    </div>
+
+                    <button type="submit" class="btn primary full">登录</button>
+                    <a class="btn primary full" href="index.html#contact"
+                        style="background-color: #1E88E5;;">添加顾问获取专属密钥</a>
+                </form>
+                <p class=" mini-text">登录即代表同意《隐私政策》与《用户协议》</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="container">
+            <p>© 2025 coniferhealthy健康管理有限公司 版权所有</p>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
+    <script>
+        const { createApp } = Vue;
+        createApp({
+            data() {
+                return {
+                    form: {
+                        account: '',
+                        password: '',
+                        remember: true
+                    }
+                };
+            },
+            methods: {
+                handleLogin() {
+                    if (!this.form.account || !this.form.password) {
+                        alert('请填写账号和密码');
+                        return;
+                    }
+                    alert(`模拟登录：账号 ${this.form.account}`);
+                },
+                handleRegister() {
+                    alert('模拟注册：请联系顾问开通账号或接入后端接口');
+                },
+                handleForgot() {
+                    alert('模拟找回：请联系顾问重置密码或接入短信/邮件重置');
+                }
+            }
+        }).mount('#donor-app');
+    </script>
+    <script src="js/main.js"></script>
+</body>
+
+</html>

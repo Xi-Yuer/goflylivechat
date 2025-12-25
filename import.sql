@@ -111,3 +111,24 @@ CREATE TABLE `reply_item` (
  KEY `user_id` (`user_id`),
  KEY `group_id` (`group_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `contact`;
+CREATE TABLE `contact` (
+ `id` int(11) NOT NULL AUTO_INCREMENT,
+ `name` varchar(50) NOT NULL DEFAULT '',
+ `phone` varchar(20) NOT NULL DEFAULT '',
+ `type` varchar(50) NOT NULL DEFAULT '',
+ `demand` text,
+ `client_ip` varchar(100) NOT NULL DEFAULT '',
+ `source_ip` varchar(100) NOT NULL DEFAULT '',
+ `status` tinyint(4) NOT NULL DEFAULT '0',
+ `processed_by` varchar(50) NOT NULL DEFAULT '',
+ `processed_at` timestamp NULL DEFAULT NULL,
+ `remark` text,
+ `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+ `updated_at` timestamp NULL DEFAULT NULL,
+ `deleted_at` timestamp NULL DEFAULT NULL,
+ PRIMARY KEY (`id`),
+ KEY `idx_status` (`status`),
+ KEY `idx_created_at` (`created_at`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;

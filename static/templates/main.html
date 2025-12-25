@@ -67,6 +67,11 @@
                 <span slot="title">聊天</span>
             </div>
 
+            <div class="menuLeftItem" v-on:click="openIframeUrl('/contact_list')">
+                <i class="el-icon-phone"></i>
+                <span slot="title">联系方式</span>
+            </div>
+
             <div style="display: none" class="menuLeftItem" v-on:click="openIframeUrl('/setting_deploy')">
                 <i class="el-icon-notebook-2"></i>
                 <span slot="title">集成</span>
