@@ -140,7 +140,7 @@ func UpdateContact(c *gin.Context) {
 
 // 删除联系方式（客服端接口，需要认证）
 func DeleteContact(c *gin.Context) {
-	idStr := c.Query("id")
+	idStr := c.PostForm("id")
 	if idStr == "" {
 		c.JSON(200, gin.H{
 			"code": 400,
