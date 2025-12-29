@@ -16,17 +16,19 @@ func GetNotice(c *gin.Context) {
 		return
 	}
 	welcomeMessage := models.FindConfigByUserId(user.Name, "WelcomeMessage")
+	welcomeImage := models.FindConfigByUserId(user.Name, "WelcomeImage")
 	offlineMessage := models.FindConfigByUserId(user.Name, "OfflineMessage")
 	allNotice := models.FindConfigByUserId(user.Name, "AllNotice")
 	c.JSON(200, gin.H{
 		"code": 200,
 		"msg":  "ok",
 		"result": gin.H{
-			"welcome":   welcomeMessage.ConfValue,
-			"offline":   offlineMessage.ConfValue,
-			"avatar":    user.Avator,
-			"nickname":  user.Nickname,
-			"allNotice": allNotice.ConfValue,
+			"welcome":      welcomeMessage.ConfValue,
+			"welcomeImage": welcomeImage.ConfValue,
+			"offline":      offlineMessage.ConfValue,
+			"avatar":       user.Avator,
+			"nickname":     user.Nickname,
+			"allNotice":    allNotice.ConfValue,
 		},
 	})
 }

@@ -80,7 +80,9 @@ INSERT INTO `config` (`id`, `conf_name`, `conf_key`, `conf_value`, `user_id`) VA
 INSERT INTO `config` (`id`, `conf_name`, `conf_key`, `conf_value`, `user_id`) VALUES
 (NULL, 'Offline Message', 'OfflineMessage', '我目前离线，稍后回复您！','agent');
 INSERT INTO `config` (`id`, `conf_name`, `conf_key`, `conf_value`, `user_id`) VALUES
-(NULL, 'Welcome Message', 'WelcomeMessage', '有什么可以帮您的吗？','agent');
+(NULL, 'Welcome Message', 'WelcomeMessage', '您好，这里是 Conifer IVF 专业生殖咨询团队。为了保障隐私与提供更精准的服务，请添加官方微信：Conifer_IVF，我们的资深顾问将在微信上，您提供专业评估与个性化建议。','agent');
+INSERT INTO `config` (`id`, `conf_name`, `conf_key`, `conf_value`, `user_id`) VALUES
+(NULL, 'Welcome Image', 'WelcomeImage', '','agent');
 INSERT INTO `config` (`id`, `conf_name`, `conf_key`, `conf_value`, `user_id`) VALUES
 (NULL, 'Email Address (SMTP)', 'NoticeEmailSmtp', '','agent');
 INSERT INTO `config` (`id`, `conf_name`, `conf_key`, `conf_value`, `user_id`) VALUES

@@ -51,3 +51,18 @@ func FindConfigByUserId(userId interface{}, key string) Config {
 	DB.Where("user_id = ? and conf_key = ?", userId, key).Find(&config)
 	return config
 }
+
+// 确保配置项存在，如果不存在则创建
+func EnsureConfigExists(userId string, confName string, confKey string, defaultValue string) {
+	config := FindConfigByUserId(userId, confKey)
+	if config.ID == 0 {
+		newConfig := &Config{
+			ID:        0,
+			ConfName:  confName,
+			ConfKey:   confKey,
+			ConfValue: defaultValue,
+			UserId:    userId,
+		}
+		DB.Create(newConfig)
+	}
+}

@@ -360,15 +360,28 @@
                     if(code!=200) return;
                     _this.kefuInfo=res.result;
                     _this.showTitle(_this.kefuInfo.nickname+"为您服务。");
-                    if(!_this.kefuInfo.welcome) return;
-                    var msg={
-                        content:replaceContent(_this.kefuInfo.welcome),
-                        avator:_this.kefuInfo.avatar,
-                        name :_this.kefuInfo.nickname,
-                        time:_this.getNowDate(),
-                        is_kefu:true,
+                    // 发送文字欢迎消息
+                    if(_this.kefuInfo.welcome) {
+                        var msg={
+                            content:replaceContent(_this.kefuInfo.welcome),
+                            avator:_this.kefuInfo.avatar,
+                            name :_this.kefuInfo.nickname,
+                            time:_this.getNowDate(),
+                            is_kefu:true,
+                        }
+                        _this.msgList.push(msg);
                     }
-                    _this.msgList.push(msg);
+                    // 发送图片欢迎消息
+                    if(_this.kefuInfo.welcomeImage) {
+                        var imgMsg={
+                            content:replaceContent('img[' + _this.kefuInfo.welcomeImage + ']'),
+                            avator:_this.kefuInfo.avatar,
+                            name :_this.kefuInfo.nickname,
+                            time:_this.getNowDate(),
+                            is_kefu:true,
+                        }
+                        _this.msgList.push(imgMsg);
+                    }
                     _this.scrollBottom();
                     _this.alertSound();
                 });

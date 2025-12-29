@@ -5,6 +5,7 @@ import (
 	"github.com/spf13/cobra"
 	"github.com/zh-five/xdaemon"
 	"goflylivechat/middleware"
+	"goflylivechat/models"
 	"goflylivechat/router"
 	"goflylivechat/tools"
 	"goflylivechat/ws"
@@ -53,6 +54,9 @@ func run() {
 	log.Println("Starting server...\nURL: http://" + baseServer)
 	tools.Logger().Println("Starting server...\nURL: http://" + baseServer)
 
+	// 确保必要的配置项存在
+	ensureDefaultConfigs()
+
 	// Gin engine setup
 	engine := gin.Default()
 	engine.LoadHTMLGlob("static/templates/*")
@@ -74,4 +78,15 @@ func run() {
 
 	// Start server
 	engine.Run(baseServer)
+}
+
+// 确保默认配置项存在
+func ensureDefaultConfigs() {
+	// 默认客服ID
+	defaultUserId := "agent"
+	
+	// 确保 WelcomeImage 配置项存在
+	models.EnsureConfigExists(defaultUserId, "Welcome Image", "WelcomeImage", "")
+	
+	log.Println("Default configurations ensured")
 }
