@@ -2,11 +2,11 @@ package ws
 
 import (
 	"encoding/json"
+	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/gorilla/websocket"
 	"goflylivechat/common"
 	"goflylivechat/models"
-	"goflylivechat/tools"
 	"log"
 	"time"
 )
@@ -177,7 +177,7 @@ func VisitorAutoReply(vistorInfo models.Visitor, kefuInfo models.User, content s
 		return
 	}
 	
-	// 客服不在线，触发AI智能回复
+	// 客服不在线，发送固定开场白消息和图片消息
 	go func() {
 		// 优先使用关键词回复
 		if reply.Content != "" {
@@ -188,32 +188,29 @@ func VisitorAutoReply(vistorInfo models.Visitor, kefuInfo models.User, content s
 			return
 		}
 		
-		// 调用AI智能回复
-		aiReply, err := tools.CallDifyWorkflow(content, vistorInfo.VisitorId)
-		if err != nil {
-			log.Printf("调用Dify AI回复失败: %v", err)
-			// AI回复失败，使用离线消息配置
-			config := models.FindConfigByUserId(kefuInfo.Name, "OfflineMessage")
-			if config.ConfValue != "" {
-				time.Sleep(1 * time.Second)
-				VisitorMessage(vistorInfo.VisitorId, config.ConfValue, kefuInfo)
-				models.CreateMessage(kefuInfo.Name, vistorInfo.VisitorId, config.ConfValue, "kefu")
-			} else {
-				// 使用默认离线消息
-				time.Sleep(1 * time.Second)
-				defaultMessage := "您好，客服暂时不在线，我们会尽快回复您的问题。"
-				VisitorMessage(vistorInfo.VisitorId, defaultMessage, kefuInfo)
-				models.CreateMessage(kefuInfo.Name, vistorInfo.VisitorId, defaultMessage, "kefu")
-			}
-			return
+		// 获取离线消息配置作为开场白
+		config := models.FindConfigByUserId(kefuInfo.Name, "OfflineMessage")
+		var welcomeMessage string
+		if config.ConfValue != "" {
+			welcomeMessage = config.ConfValue
+		} else {
+			// 使用默认开场白
+			welcomeMessage = "您好，客服暂时不在线，我们会尽快回复您的问题。"
 		}
 		
-		// 如果AI回复成功，发送AI回复
-		if aiReply != "" {
-			VisitorMessage(vistorInfo.VisitorId, aiReply, kefuInfo)
-			KefuMessage(vistorInfo.VisitorId, aiReply, kefuInfo)
-			models.CreateMessage(kefuInfo.Name, vistorInfo.VisitorId, aiReply, "kefu")
-		}
+		// 发送固定开场白消息
+		time.Sleep(1 * time.Second)
+		VisitorMessage(vistorInfo.VisitorId, welcomeMessage, kefuInfo)
+		KefuMessage(vistorInfo.VisitorId, welcomeMessage, kefuInfo)
+		models.CreateMessage(kefuInfo.Name, vistorInfo.VisitorId, welcomeMessage, "kefu")
+		
+		// 发送图片消息（使用默认图片路径，可根据需要修改）
+		imagePath := "/static/images/welcome.jpg" // 默认图片路径，可根据需要修改为配置项
+		imageMessage := fmt.Sprintf("img[%s]", imagePath)
+		time.Sleep(500 * time.Millisecond) // 间隔500ms发送图片
+		VisitorMessage(vistorInfo.VisitorId, imageMessage, kefuInfo)
+		KefuMessage(vistorInfo.VisitorId, imageMessage, kefuInfo)
+		models.CreateMessage(kefuInfo.Name, vistorInfo.VisitorId, imageMessage, "kefu")
 	}()
 }
 func CleanVisitorExpire() {
