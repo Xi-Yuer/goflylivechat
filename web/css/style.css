@@ -140,6 +140,8 @@ ol {
     animation: slideDown 0.5s ease 0.2s forwards;
 }
 
+
+
 @keyframes slideDown {
     to {
         transform: translateY(0);
@@ -603,131 +605,427 @@ ol {
     transform: translateY(-5px);
 }
 
-/* 医疗资源样式 */
+/* 医疗资源样式 - 极简版 */
 .resource {
-    padding: 80px 0;
-    background-color: var(--bg-color);
+    padding: 60px 0;
+    background-color: #f8f9fa;
 }
 
-.hospitals h4 {
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.resource .section-title {
+    font-size: 32px;
+    color: #1e88e5;
+    text-align: center;
+    margin-bottom: 30px;
+    font-weight: 700;
+}
+
+.resource-content h4 {
     font-size: 24px;
     margin-bottom: 30px;
-    color: var(--primary-color);
+    color: #1e88e5;
     text-align: center;
 }
 
-.hospital-logos {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 30px;
-    align-items: center;
-    background-color: var(--white);
-    padding: 40px 20px;
+/* 医院图片容器 */
+.hospital-image-simple {
+    width: 100%;
+    height: 350px;
+    max-width: 1000px;
+    margin: 0 auto;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+.hospital-image-simple img {
+    width: 100%;
+    height: auto;
+    display: block;
+    transition: transform 0.5s ease;
+}
+
+.hospital-image-simple:hover img {
+    transform: scale(1.03);
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .resource {
+        padding: 40px 0;
+    }
+
+    .resource .section-title {
+        font-size: 28px;
+        margin-bottom: 20px;
+    }
+
+    .resource-content h4 {
+        font-size: 20px;
+        margin-bottom: 20px;
+    }
+
+    .hospital-image-simple {
+        border-radius: 8px;
+    }
+}
+
+/* 查看更多按钮 */
+.view-more-hospitals {
+    text-align: center;
+    margin-top: 60px;
+    position: relative;
+    z-index: 10;
+}
+
+.view-more-hospitals p {
+    color: var(--light-text);
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+
+.btn.secondary {
+    display: inline-block;
+    padding: 12px 30px;
+    background: linear-gradient(135deg, var(--primary-color), #1565c0);
+    color: white;
+    border-radius: 30px;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(30, 136, 229, 0.2);
+}
+
+.btn.secondary:hover {
+    background: linear-gradient(135deg, var(--secondary-color), #e68900);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(255, 152, 0, 0.3);
+}
+
+/* 定义环绕位置 */
+.hospital-surround-item:nth-child(1) {
+    animation-delay: 0.7s;
+    top: calc(50% - 200px);
+    left: calc(50% - 250px);
+}
+
+.hospital-surround-item:nth-child(2) {
+    animation-delay: 0.8s;
+    top: calc(50% - 150px);
+    left: calc(50% + 250px);
+}
+
+.hospital-surround-item:nth-child(3) {
+    animation-delay: 0.9s;
+    top: 50%;
+    left: calc(50% - 300px);
+}
+
+.hospital-surround-item:nth-child(4) {
+    animation-delay: 1.0s;
+    top: 50%;
+    left: calc(50% + 300px);
+}
+
+.hospital-surround-item:nth-child(5) {
+    animation-delay: 1.1s;
+    top: calc(50% + 180px);
+    left: calc(50% - 200px);
+}
+
+.hospital-surround-item:nth-child(6) {
+    animation-delay: 1.2s;
+    top: calc(50% + 150px);
+    left: calc(50% + 200px);
+}
+
+.hospital-surround-item .hospital-logo {
+    width: 70px;
+    height: 70px;
+    margin: 0 auto 10px;
+    padding: 10px;
+    background: white;
     border-radius: 15px;
-    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
-}
-
-.logo-item {
+    box-shadow: 0 3px 15px rgba(0, 0, 0, 0.08);
+    transition: all 0.4s ease;
     display: flex;
-    flex-direction: column;
     align-items: center;
-    gap: 10px;
-    padding: 20px;
-    border-radius: 10px;
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1);
-    flex: 0 1 180px;
-    text-align: center;
-    opacity: 0;
-    transform: translateY(20px) scale(0.95);
-    animation: logoFloat 0.8s ease forwards;
+    justify-content: center;
 }
 
-@keyframes logoFloat {
+.hospital-surround-item:hover .hospital-logo {
+    transform: scale(1.2) rotate(-5deg);
+    box-shadow: 0 8px 25px rgba(30, 136, 229, 0.2);
+    z-index: 20;
+}
+
+.hospital-surround-item .hospital-logo img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    transition: all 0.4s ease;
+    filter: grayscale(50%) brightness(1);
+}
+
+.hospital-surround-item:hover .hospital-logo img {
+    filter: grayscale(0%) brightness(1.1);
+    transform: scale(1.1);
+}
+
+.hospital-name {
+    font-size: 13px;
+    color: var(--light-text);
+    font-weight: 500;
+    text-align: center;
+    margin-top: 5px;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+.hospital-surround-item:hover .hospital-name {
+    color: var(--primary-color);
+    font-weight: 600;
+    transform: translateY(-3px);
+}
+
+/* 连接线效果 */
+.hospital-surround-item::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, rgba(30, 136, 229, 0.2), transparent);
+    transform-origin: center;
+    animation: connectLine 2s ease-in-out infinite;
+    animation-delay: calc(var(--i) * 0.3s);
+}
+
+@keyframes connectLine {
 
     0%,
     100% {
-        transform: translateY(0) scale(1);
+        width: 0;
+        opacity: 0;
+        transform: translate(-50%, -50%) rotate(var(--r, 0deg));
     }
 
     50% {
-        transform: translateY(-10px) scale(1.05);
+        width: 150px;
+        opacity: 0.5;
+        transform: translate(-50%, -50%) rotate(var(--r, 0deg));
+    }
+}
+
+/* 设置每个环绕项目的连线角度 */
+.hospital-surround-item:nth-child(1)::before {
+    --r: -30deg;
+}
+
+.hospital-surround-item:nth-child(2)::before {
+    --r: 30deg;
+}
+
+.hospital-surround-item:nth-child(3)::before {
+    --r: -90deg;
+}
+
+.hospital-surround-item:nth-child(4)::before {
+    --r: 90deg;
+}
+
+.hospital-surround-item:nth-child(5)::before {
+    --r: -150deg;
+}
+
+.hospital-surround-item:nth-child(6)::before {
+    --r: 150deg;
+}
+
+/* 查看更多医院按钮 */
+.view-more-hospitals {
+    text-align: center;
+    margin-top: 40px;
+    padding-top: 30px;
+    border-top: 1px dashed rgba(30, 136, 229, 0.2);
+}
+
+.view-more-hospitals p {
+    color: var(--light-text);
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+
+.view-more-hospitals .btn {
+    position: relative;
+    overflow: hidden;
+}
+
+.view-more-hospitals .btn::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(30, 136, 229, 0.1);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+}
+
+.view-more-hospitals .btn:hover::after {
+    width: 300px;
+    height: 300px;
+}
+
+/* 医院详情弹窗 */
+.hospital-detail-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 9999;
+    align-items: center;
+    justify-content: center;
+}
+
+.hospital-detail-content {
+    background: white;
+    border-radius: 20px;
+    padding: 40px;
+    max-width: 800px;
+    width: 90%;
+    max-height: 80vh;
+    overflow-y: auto;
+    position: relative;
+    animation: modalAppear 0.5s ease;
+}
+
+@keyframes modalAppear {
+    from {
+        opacity: 0;
+        transform: scale(0.8) translateY(-50px);
     }
 
     to {
         opacity: 1;
-        transform: translateY(0) scale(1);
+        transform: scale(1) translateY(0);
     }
 }
 
-.logo-item:nth-child(1) {
-    animation-delay: 0.1s;
-}
-
-.logo-item:nth-child(2) {
-    animation-delay: 0.2s;
-}
-
-.logo-item:nth-child(3) {
-    animation-delay: 0.3s;
-}
-
-.logo-item:nth-child(4) {
-    animation-delay: 0.4s;
-}
-
-.logo-item:nth-child(5) {
-    animation-delay: 0.5s;
-}
-
-.logo-item:nth-child(6) {
-    animation-delay: 0.6s;
-}
-
-.logo-item:nth-child(7) {
-    animation-delay: 0.7s;
-}
-
-.logo-item:nth-child(8) {
-    animation-delay: 0.8s;
-}
-
-.logo-item:nth-child(9) {
-    animation-delay: 0.9s;
-}
-
-.logo-item:hover {
-    transform: translateY(-10px) scale(1.1);
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
-    z-index: 2;
-}
-
-.logo-item img {
-    max-width: 100%;
-    height: auto;
-    max-height: 80px;
-    object-fit: contain;
-    transition: all 0.4s ease;
-    /* filter: grayscale(100%) brightness(1.2); */
-}
-
-.logo-item:hover img {
-    filter: grayscale(0%) brightness(1);
-    transform: scale(1.1);
-}
-
-.logo-name {
-    font-size: 14px;
+.close-modal {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 24px;
     color: var(--light-text);
-    font-weight: 500;
-    margin-top: 5px;
+    cursor: pointer;
     transition: all 0.3s ease;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
 }
 
-.logo-item:hover .logo-name {
-    color: var(--primary-color);
-    font-weight: 600;
-    transform: translateY(-5px);
+.close-modal:hover {
+    color: var(--secondary-color);
+    background: rgba(255, 183, 77, 0.1);
+    transform: rotate(90deg);
+}
+
+/* 响应式适配 */
+@media (max-width: 1200px) {
+    .main-hospitals {
+        gap: 30px;
+    }
+
+    .hospital-main-item {
+        width: 280px;
+    }
+
+    /* 调整环绕位置 */
+    .hospital-surround-item:nth-child(1) {
+        top: calc(50% - 180px);
+        left: calc(50% - 200px);
+    }
+
+    .hospital-surround-item:nth-child(2) {
+        top: calc(50% - 130px);
+        left: calc(50% + 200px);
+    }
+
+    .hospital-surround-item:nth-child(3) {
+        left: calc(50% - 250px);
+    }
+
+    .hospital-surround-item:nth-child(4) {
+        left: calc(50% + 250px);
+    }
+
+    .hospital-surround-item:nth-child(5) {
+        top: calc(50% + 150px);
+        left: calc(50% - 160px);
+    }
+
+    .hospital-surround-item:nth-child(6) {
+        top: calc(50% + 120px);
+        left: calc(50% + 160px);
+    }
+}
+
+@media (max-width: 992px) {
+    .main-hospitals {
+        flex-direction: column;
+        align-items: center;
+        gap: 30px;
+    }
+
+    .hospital-main-item {
+        width: 100%;
+        max-width: 400px;
+    }
+
+    .hospital-display {
+        min-height: auto;
+        margin-bottom: 40px;
+    }
+
+    .surrounding-hospitals {
+        display: none;
+    }
+
+    .hospital-detail-content {
+        padding: 30px 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    .hospital-main-item {
+        padding: 20px;
+    }
+
+    .hospital-logo {
+        width: 100px;
+        height: 100px;
+    }
+
+    .view-more-hospitals p {
+        font-size: 14px;
+    }
 }
 
 /* 联系我们样式 */
@@ -785,6 +1083,52 @@ ol {
     animation: bounce 0.5s ease;
 }
 
+/* 咨询列表基础样式 */
+.consult-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.consult-list li {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    /* 图标与文字间距 */
+    margin-bottom: 12px;
+    font-size: 14px;
+}
+
+/* 微信条目样式 */
+.wechat-item {
+    position: relative;
+}
+
+/* 二维码容器样式 - 默认显示 */
+.wechat-qrcode {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    margin-top: 8px;
+    padding: 8px;
+    background: #fff;
+    border: 1px solid #eee;
+    border-radius: 4px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    display: block;
+    /* 改为默认显示 */
+    z-index: 99;
+}
+
+/* 二维码图片样式 */
+.wechat-qrcode img {
+    width: 120px;
+    height: 120px;
+    display: block;
+}
+
+
+
 @keyframes bounce {
 
     0%,
@@ -797,29 +1141,7 @@ ol {
     }
 }
 
-/* 微信联系样式 */
-.wechat-item {
-    cursor: pointer;
-}
 
-.wechat-wrap {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.wechat-qrcode {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 5px;
-    padding: 10px;
-    background: white;
-    border-radius: 8px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-    transform-origin: top left;
-    animation: popIn 0.3s ease;
-}
 
 @keyframes popIn {
     from {
@@ -831,15 +1153,6 @@ ol {
         opacity: 1;
         transform: scale(1);
     }
-}
-
-.wechat-qrcode img {
-    border-radius: 8px;
-}
-
-.wechat-qrcode p {
-    font-size: 14px;
-    color: var(--secondary-color);
 }
 
 .contact-form h4 {
@@ -1324,10 +1637,12 @@ ol {
     }
 }
 
+/* donor背景图 */
 .donor-hero {
-    background: url("https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=1600&q=80") center/cover no-repeat;
+    background: url("../images/human.jpg") center/cover no-repeat;
 }
 
+/* 合法代孕背景图 */
 .surrogacy-hero {
     background: url("https://images.unsplash.com/photo-1485846234645-a62644f84728?auto=format&fit=crop&w=1600&q=80") center/cover no-repeat;
     animation: heroZoom 20s linear infinite;
